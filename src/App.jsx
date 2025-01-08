@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import axios from "axios";
+
 function App() {
   const [data, setData] = useState({});
   const [location, setLocation] = useState("");
@@ -11,35 +12,55 @@ function App() {
     if (e.key === "Enter") {
       axios.get(url).then((response) => {
         setData(response.data);
+        console.log(data);
       });
+      setLocation("");
     }
+  };
+
+  // Convert Kelvin to Celsius
+  const kelvinToCelsius = (kelvin) => {
+    return (kelvin - 273.15).toFixed(2); // Convert to Celsius and limit to 2 decimal places
   };
 
   return (
     <div className="app">
+      <div className="search">
+        <input
+          type="text"
+          value={location} // added back the value to make the input controlled
+          onChange={(e) => setLocation(e.target.value)}
+          placeholder="Enter Location"
+          onKeyDown={searchLocation}
+        />
+      </div>
       <div className="container">
         <div className="top">
           <div className="location">
-            <p>Sydney</p>
+            <p>{data.name}</p>
           </div>
           <div className="temp">
-            <h1>19 deg Celcius</h1>
+            {data.main ? <h1>{kelvinToCelsius(data.main.temp)}°C</h1> : null}
           </div>
           <div className="description">
-            <p>Cloudy</p>
+            <p>{data.weather ? data.weather[0].description : "Cloudy"}</p>
           </div>
         </div>
         <div className="bottom">
           <div className="feels">
-            <p>19 deg Celcius</p>
+            <p>
+              {data.main ? (
+                <h3>{kelvinToCelsius(data.main.feels_like)}°C</h3>
+              ) : null}
+            </p>
           </div>
           <div className="humidity">
-            <p>28%</p>
-            <p> Humidity</p>
+            <p>{data.main ? <h1>{data.main.humidity} %</h1> : null}</p>
+            <p>Humidity</p>
           </div>
           <div className="wind">
-            <p>12 MPH</p>
-            <p> Windspeed</p>
+            <p>{data.wind ? <h1>{data.wind.speed} MPH</h1> : null}</p>
+            <p>Windspeed</p>
           </div>
         </div>
       </div>

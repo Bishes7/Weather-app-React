@@ -5,7 +5,7 @@ body {
 }
 
 p {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
 }
 
 h1 {
@@ -20,6 +20,22 @@ h1 {
   color: white;
 }
 
+.app .search {
+  text-align: center;
+  padding: 1rem;
+}
+
+.app input {
+  padding: 0.5rem 1.8rem;
+  font-size: 1.2rem;
+  border-radius: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.079);
+  color: #fff;
+}
+::placeholder {
+  color: #fff;
+}
 .app::before {
   content: "";
   background: url("./assets/new.jpg") no-repeat center center/cover;
@@ -54,7 +70,8 @@ h1 {
   text-align: center;
   width: 100%;
   margin: 1rem auto;
-  padding: 0.2rem;
+
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.2);
+  margin-bottom: 5rem;
 }
